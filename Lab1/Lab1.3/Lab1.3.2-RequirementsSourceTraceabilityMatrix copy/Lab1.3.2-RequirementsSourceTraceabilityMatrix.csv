@@ -1,0 +1,27 @@
+Requirement ID	,Requirement Description,Source
+RQ-001,User registration,"User feedback, Market research"
+RQ-002,User login,User feedback
+RQ-003,Create quiz creation feature,"User survey, Marketing team"
+RQ-004,Design user profile page,Internal design team
+RQ-005,Add quiz sharing options,"Customer requests, Marketing team"
+RQ-006,Develop scoring system,Project stakeholders
+RQ-007,Enable question creation,"User feedback, Design team"
+RQ-008,Implement game hosting,"Business strategy, Stakeholders"
+RQ-009,Create leaderboards,"Project goals, Marketing team"
+RQ-010,Design user dashboard,User experience research
+RQ-011,Add social media integration,"Marketing team, User feedback"
+RQ-012,Implement chat feature,Customer support team
+RQ-013,Develop user notifications,Stakeholder requirements
+RQ-014,Enable quiz commenting,"User requests, Market research"
+RQ-015,Create user privacy settings,"Legal department, User feedback"
+RQ-016,Implement user reporting,"Compliance requirements, Stakeholders"
+RQ-017,Develop analytics dashboard,"Project management, Data analysis"
+RQ-018,Add payment integration,"Financial requirements, Market research"
+RQ-019,Implement quiz categories,"User feedback, Marketing team"
+RQ-020,Design user settings page,User experience research
+RQ-021,Enable quiz search feature,"User requests, Marketing team"
+RQ-022,Implement real-time quizzes,"User feedback, Gamification team"
+RQ-023,Add timer to quiz questions,"User feedback, Gamification team"
+RQ-024,Develop multiplayer mode,"User feedback, Gamification team"
+RQ-025,Create game progress tracker,"User feedback, Analytics team"
+RQ-026,Implement performance analytics,"Analytics team, Project stakeholders"
