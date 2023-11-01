@@ -1,0 +1,23 @@
+@startuml Create Community
+
+rectangle "Create Community"  {
+    start
+  :User initiates community creation;
+  :Provide community details;
+  if (Details valid?) then (yes)
+    :Generate unique community ID;
+    :Create community;
+    :Invite users to join;
+    while (Invite more users?) is (yes)
+      :Send invitations;
+      :Accept or reject invitations;
+    endwhile (no)
+    :Community created;
+  else (no)
+    :Display error message;
+    stop
+  endif
+  stop
+}
+
+@enduml
