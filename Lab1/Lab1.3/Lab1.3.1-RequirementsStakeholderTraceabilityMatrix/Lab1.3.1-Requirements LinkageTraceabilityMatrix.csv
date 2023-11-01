@@ -1,0 +1,43 @@
+Requirement ID	,Requirement Description,Screen UI,Status,Test case
+RQ-001,User registration,SignIn,In progress,TC-001
+RQ-002,User login,SignUp,In progress,TC-002
+RQ-003,Create quiz creation feature,Create Quiz,In progress,TC-004
+RQ-004,Design user profile page,UpdateProfile,In progress,TC-006
+RQ-005,Add quiz sharing options,Create Question,In progress,TC-005
+RQ-006,Develop scoring system,Profile,In progress,
+RQ-007,Enable question creation,Create Quuesion,In progress,TC-005
+RQ-008,Implement game hosting,HostGame,In progress,TC-007
+RQ-009,Create leaderboards,System,In progress,
+RQ-010,Design user dashboard,System,In progress,
+RQ-011,Add social media integration,Sytem,In progress,
+RQ-012,Implement chat feature,ChatScreen,In progress,
+RQ-013,Develop user notifications,Notification in Navbar,In progress,
+RQ-014,Enable quiz commenting,Comment Quiz,In progress,
+RQ-015,Create user privacy settings,Settings,In progress,
+RQ-016,Implement user reporting,Report in Settings,In progress,
+RQ-017,Develop analytics dashboard,System,In progress,
+RQ-018,Add payment integration,System,In progress,
+RQ-019,Implement quiz categories,CreateQuiz,In progress,TC-004
+RQ-020,Design user settings page,Profile,In progress,
+RQ-021,Enable quiz search feature,SearchQuiz,In progress,TC-003
+RQ-022,Implement real-time quizzes,Real-time Game,In progress,
+RQ-023,Add timer to quiz questions,CreateQuestion,In progress,TC-005
+RQ-024,Develop multiplayer mode,System,In progress,
+RQ-025,Create game progress tracker,HostGame,In progress,TC-006
+RQ-026,Implement performance analytics,System,In progress,
+,,,,
+,,,,
+,,,,
+Testcase ID        ,Testcase Description,Test Case Procedure,Expected Output,Results
+TC-001,Check Register,"-Enter Email,password,userName,userType","Register Successfully , 
+navigate to HomeScreen",Pass
+TC-002,Check Login,"-Enter Email,password","Login Successfully , 
+navigate to HomeScreen",Pass
+TC-003,Search Quiz,-Enter info and click Search Button,Find Quiz successully,Paas
+TC-004,Check CreateQuiz,"-Enter Info to createQuiz 
+(name,description,pointType...)",Create Quiz sucssessully,Pass
+TC-005,Check CreateQuestion,"-Enter Info to createQuestion 
+(name,description,image...)",Create Question sucssessully,Pass
+TC-006,Check UpdateProile,"-Enter info to update Profile
+(userName,email,password)",Update Profile Successully,Pass
+TC-007,Check CreateGame,-host click Play button to create Game,Create Game susccessully,Pass
