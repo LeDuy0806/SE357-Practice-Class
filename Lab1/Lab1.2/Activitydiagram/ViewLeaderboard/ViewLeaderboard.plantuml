@@ -1,0 +1,15 @@
+@startuml View Leaderboard
+
+rectangle "View Leaderboard" {
+ 
+    start
+    :User selects quiz for leaderboard;
+    :Retrieve leaderboard data;
+    while (Leaderboard data available?) is (yes)
+    :Display leaderboard with rankings;
+    :View user profiles;
+    endwhile (no)
+    stop
+
+}
+@enduml

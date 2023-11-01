@@ -1,0 +1,14 @@
+@startuml Chat in a Community
+
+rectangle "Chat Community"  {
+    start
+    :User enters a community;
+    while (Chat active?) is (yes)
+    :Send chat message;
+    :Receive and display messages;
+    endwhile (no)
+    :Exit community chat;
+    stop
+}
+
+@enduml
