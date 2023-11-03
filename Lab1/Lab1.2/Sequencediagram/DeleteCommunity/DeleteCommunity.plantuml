@@ -1,0 +1,23 @@
+@startuml DeleteCommunitySequece
+actor User
+User -> App: Delete Community
+activate App
+
+User --> App: Select Community to Delete
+User -> App: Community Name, Confirmation, etc.
+
+alt Confirmation Granted
+    App -> CommunityDatabase: Check Community Existence
+    activate CommunityDatabase
+    App <-- CommunityDatabase: Community Exists
+    App -> CommunityDatabase: Delete Community
+    App <-- CommunityDatabase: Community Deleted
+    App -> User: Community Deleted Successfully
+    User <-- App: Community Deleted
+    deactivate CommunityDatabase
+else Confirmation Denied
+    App --> User: Deletion Canceled
+end
+
+deactivate App
+@enduml
