@@ -1,0 +1,22 @@
+@startuml CreateCommunitySequence
+
+activate App
+
+User --> App: Provide Community Details
+User -> App: Community Name, Description, Members, etc.
+
+alt Valid Details
+    App -> CommunityDatabase: Check Community Availability
+    activate CommunityDatabase
+    App <-- CommunityDatabase: Community Not Found
+    App -> CommunityDatabase: Create Community
+    App <-- CommunityDatabase: Community Created
+    App -> User: Community Created Successfully
+    User <-- App: Community Created
+    deactivate CommunityDatabase
+else Invalid Details
+    App --> User: Invalid Details
+end
+
+deactivate App
+@enduml

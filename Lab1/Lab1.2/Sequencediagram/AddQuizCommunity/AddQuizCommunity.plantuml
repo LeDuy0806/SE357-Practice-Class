@@ -1,0 +1,26 @@
+@startuml AddQuizCommunitySequence
+
+actor User
+User -> App: AddQuizCommunity
+activate App
+
+User --> App: Select Community and Quiz to Add
+User -> App: Community Name, Quiz Name, Confirmation, etc.
+
+alt Confirmation Granted
+    App -> CommunityDatabase: Check Community Existence
+    activate CommunityDatabase
+    App <-- CommunityDatabase: Community Exists
+    App -> CommunityDatabase: Check Quiz Existence
+    App <-- CommunityDatabase: Quiz Exists
+    App -> CommunityDatabase: Add Quiz to Community
+    App <-- CommunityDatabase: Quiz Added to Community
+    App -> User: Quiz Added Successfully
+    User <-- App: Quiz Added
+    deactivate CommunityDatabase
+else Confirmation Denied
+    App --> User: Addition Canceled
+end
+
+deactivate App
+@enduml

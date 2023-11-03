@@ -1,0 +1,21 @@
+@startuml SignInSequence
+actor User
+User -> App: Request SignIn
+activate App
+
+User <-- App: Provide Credentials
+User -> App: Email, Password
+
+alt Valid Credentials
+    App -> Database: Check Credentials
+    activate Database
+    App <-- Database: Credentials Valid
+    App -> User: Sign In Successful
+    User <-- App: Signed In
+    deactivate Database
+else Invalid Credentials
+    App --> User: Credentials Invalid
+end
+
+deactivate App
+@enduml

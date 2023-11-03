@@ -1,0 +1,27 @@
+@startuml CalculationLeaderboardSequence
+
+actor User
+User -> App: CalculateLeaderboard
+activate App
+
+User --> App: Specify Leaderboard Criteria
+User -> App: Time Period, Game, Score, etc.
+
+App -> LeaderboardService: Retrieve Leaderboard Data
+activate LeaderboardService
+App <-- LeaderboardService: Leaderboard Data Retrieved
+
+alt Data Available
+    App -> CalculationEngine: Calculate Leaderboard
+    activate CalculationEngine
+    App <-- CalculationEngine: Leaderboard Calculated
+    App -> User: Leaderboard Calculated Successfully
+    User <-- App: Leaderboard Calculated
+    deactivate CalculationEngine
+else Data Unavailable
+    App --> User: No Data Available
+end
+
+deactivate LeaderboardService
+deactivate App
+@enduml

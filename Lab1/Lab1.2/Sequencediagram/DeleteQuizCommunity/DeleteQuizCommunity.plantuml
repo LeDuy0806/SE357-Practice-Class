@@ -1,0 +1,26 @@
+@startuml DeleteQuizCommunitySequence
+
+actor User
+User -> App: DeleteQuizCommunity
+activate App
+
+User --> App: Select Community and Quiz to Delete
+User -> App: Community Name, Quiz Name, Confirmation, etc.
+
+alt Confirmation Granted
+    App -> CommunityDatabase: Check Community Existence
+    activate CommunityDatabase
+    App <-- CommunityDatabase: Community Exists
+    App -> CommunityDatabase: Check Quiz Existence
+    App <-- CommunityDatabase: Quiz Exists
+    App -> CommunityDatabase: Delete Quiz from Community
+    App <-- CommunityDatabase: Quiz Deleted from Community
+    App -> User: Quiz Deleted Successfully
+    User <-- App: Quiz Deleted
+    deactivate CommunityDatabase
+else Confirmation Denied
+    App --> User: Deletion Canceled
+end
+
+deactivate App
+@enduml

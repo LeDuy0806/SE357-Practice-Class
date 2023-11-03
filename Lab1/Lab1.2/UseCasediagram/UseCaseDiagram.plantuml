@@ -7,6 +7,7 @@ actor Student as StudentActor
 User <|-- Student
 actor Teacher as TeacherActor
 User <|-- Teacher
+
 actor Admin as AdminActor
 actor System as SystemActor
 
@@ -38,7 +39,7 @@ rectangle "Quizzes System" {
   usecase "Create LeaderboardPlayer" as UseCaseCreateLeaderboard
   usecase "Delete LeaderboardPlayer" as UseCaseDeleteLeaderboard
   usecase "Calculation LeaderboardPlayer" as UseCaseCalculationLeaderboard
-  usecase "View LeaderboardPlayer" as UseCaseViewLeaderboardPlayer
+  usecase "View LeaderboardPlayer" as UseCaseViewLeaderBoard
 
   useCase "Create ResultPlayer" as UseCaseCreateResultPlayer
   useCase "Delete ResultPlayer" as UseCaseDeleteResultPlayer
@@ -46,6 +47,7 @@ rectangle "Quizzes System" {
   usecase "View ResultPlayer" as UseCaseResultPlayer
   usecase "View ResultHost" as UseCaseResultHost
 
+  usecase "Join Community" as UseCaseJoinCommunity
   usecase "View Community" as UseCaseViewCommunity
   useCase "Create Commnity" as UseCaseCreateCommunity
   useCase "Update Community" as UseCaseUpdateCommunity
@@ -64,6 +66,9 @@ rectangle "Quizzes System" {
   usecase "Manage Communities" as UseCaseManageCommunities
 }
 
+UserActor --> Admin : Uses
+UserActor --> System : Uses
+
 UserActor --> UseCaseLogin
 UserActor --> UseCaseRegister
 UserActor --> UseCaseLogout
@@ -71,7 +76,7 @@ UserActor --> UseCaseForgotPassword
 UserActor --> UseCaseUpdateProfile
 UserActor --> UseCaseSendReport
 UserActor --> UseCaseJoinGame
-UserActor --> UseCaseViewLeaderboard
+UserActor --> UseCaseViewLeaderBoard
 UserActor --> UseCaseViewCommunity
 UserActor --> UseCaseJoinCommunity
 UserActor --> UseCaseCreateResultPlayer
@@ -105,14 +110,13 @@ TeacherActor --> UseCaseDeleteMemberCommunity
 TeacherActor --> UseCaseAddQuizCommunity
 TeacherActor --> UseCaseDeleteQuizCommunity
 
-SystemActor --> UseCaseCalculationLeaderboard
+AdminActor -up- UseCaseManageUsers
+AdminActor -up- UseCaseManageQuizzes
+AdminActor -up- UseCaseManageQuestions
+AdminActor -up- UseCaseManageGames
+AdminActor -up- UseCaseManageLeaderBoards
+AdminActor -up- UseCaseManagePlayerResults
+AdminActor -up- UseCaseManageCommunities
 
-AdminActor --> UseCaseManageUsers
-AdminActor --> UseCaseManageQuizzes
-AdminActor --> UseCaseManageQuestions
-AdminActor --> UseCaseManageGames
-AdminActor --> UseCaseManageLeaderBoards
-AdminActor --> UseCaseManagePlayerResults
-AdminActor --> UseCaseManageCommunities
-
+SystemActor-up- UseCaseCalculationLeaderboard
 @enduml
