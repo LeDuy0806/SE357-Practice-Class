@@ -2,6 +2,10 @@
 
 # **Class**: SE357.O12.PMCL
 
+**Contributors**:
+- [Trần Phước Anh Quốc](https://github.com/QuocAnh189) - 21521360 - Username: **QuocAnh189**
+- [Lê Văn Duy](https://github.com/LeDuy0806) - 21521997 - Username: **LeDuy0806**
+
 
 * #### Thông tin về dự án :
   * Quizzes App
@@ -15,6 +19,3 @@
 * #### Mục tiêu:
   * kết nối mọi người lại với nhau , tạo ra cầu nối giáo dục giữa những người có nhu cầu học tập.
 
-**Team Member**:
-- [Trần Phước Anh Quốc](https://github.com/QuocAnh189) - 21521360 - Username: **QuocAnh189**
-- [Lê Văn Duy](https://github.com/LeDuy0806) - 21521997 - Username: **LeDuy0806**
