@@ -1,0 +1,20 @@
+@startuml Manage Notifications
+
+rectangle "Manage Notifications" {
+    start
+    :User accesses notification settings;
+    :View current notification preferences;
+    :Edit notification preferences;
+    if (Changes made?) then (yes)
+    :Save changes;
+    :Update notification settings;
+    else (no)
+    :Discard changes;
+    :View updated notification preferences;
+    endif
+    stop
+
+}
+
+
+@enduml

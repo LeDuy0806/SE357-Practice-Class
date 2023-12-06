@@ -1,0 +1,26 @@
+@startuml Create Quiz
+
+rectangle "Create Quiz"{
+    start
+    :User initiates quiz creation;
+    :Provide quiz details;
+    if (Details valid?) then (yes)
+    :Generate unique quiz ID;
+    :Create quiz;
+    while (Add questions?) is (yes)
+        :Add question;
+        :Specify answer options;
+        :Set correct answers;
+    endwhile (no)
+    :Save quiz settings;
+    :Publish quiz;
+    :Notify followers;
+    else (no)
+    :Display error message;
+    stop
+    endif
+    :Quiz created;
+    stop
+}
+
+@enduml
