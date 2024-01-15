@@ -1,23 +1,61 @@
-@startuml RegisterSequence
-actor User
-User -> App: Request SignUp
-activate App
+@startuml
+actor User as U
+participant "Registration Endpoint" as RegistrationEndpoint
+database "User Database" as DB
+participant "Authorization Helper" as AuthHelper
 
-User --> App: Provide Registration Information
-User -> App: Username, Password, Email, userType, etc.
+U -> RegistrationEndpoint: Request to register
+activate RegistrationEndpoint
+RegistrationEndpoint -> U: Validate and extract user data
+alt Invalid Email Format
+    RegistrationEndpoint -> U: Respond with error (Email does not format)
+    deactivate RegistrationEndpoint
+else
+    RegistrationEndpoint -> DB: Check existing email and username
+    activate DB
+    DB --> DB : Validate information
+    DB --> RegistrationEndpoint: Email and username check result
+    deactivate DB
 
-alt Registration Data Valid
-    App -> Database: Check Availability
-    activate Database
-    App <-- Database: Data Available
-    App -> Database: Create Account
-    App <-- Database: Account Created
-    App -> User: SignUp Successful
-    User <-- App: Registered
-    deactivate Database
-else Registration Data Invalid
-    App --> User: Invalid Data
+    alt Email Exists
+        activate RegistrationEndpoint
+        RegistrationEndpoint -> U: Respond with error (Email already exists)
+    else Username Exists
+        RegistrationEndpoint -> U: Respond with error (Username already exists)
+    
+    else
+        RegistrationEndpoint -> U: Hash user password
+        deactivate RegistrationEndpoint
+        RegistrationEndpoint -> DB: Create new user
+        activate DB
+        DB --> DB:Validate user
+        DB --> RegistrationEndpoint: User creation result
+        deactivate DB
+
+        alt User Creation Failed
+            activate RegistrationEndpoint
+            RegistrationEndpoint -> U: Respond with error (User data is not valid)
+            deactivate RegistrationEndpoint
+        else User Creation Successfully
+            RegistrationEndpoint -> AuthHelper: Generate access and refresh tokens
+            activate AuthHelper
+            AuthHelper --> AuthHelper: Tokens generated
+            deactivate AuthHelper
+
+            activate RegistrationEndpoint
+            U -> RegistrationEndpoint: Access token set in request headers
+            RegistrationEndpoint -> U: Set refresh token cookie
+            U -> RegistrationEndpoint: Request for user data
+            RegistrationEndpoint -> DB: Retrieve user details
+            deactivate RegistrationEndpoint
+            activate DB
+            DB --> DB:Validate user
+            DB --> RegistrationEndpoint: User details
+            deactivate DB
+            RegistrationEndpoint -> U: Respond with user data and tokens
+            deactivate RegistrationEndpoint
+        end
+    end
 end
 
-deactivate App
 @enduml

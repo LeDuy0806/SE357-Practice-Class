@@ -1,0 +1,22 @@
+@startuml
+|User|
+start
+:1. User select "Edit Profile";
+|#AntiqueWhite|System|
+:2. Displays the personal informationform;
+|User|
+:3. User changes personal information (mail, userName,...);
+|#AntiqueWhite|System|
+if (4. Credentials are valid?) then (yes)
+  :6 .User information is changed.;
+  :7 .Display successfully message;
+else (no)
+|#AntiqueWhite|System|
+  :5 .Display error message;
+  stop
+endif
+|User|
+:8 .User receives notification of successful update;
+|User|
+stop
+@enduml

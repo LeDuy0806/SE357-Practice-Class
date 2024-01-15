@@ -1,0 +1,23 @@
+@startuml
+actor User as U
+participant "Get Teacher Quizzes Endpoint" as GetTeacherQuizzesEndpoint
+database "User Database" as UserDB
+database "Quiz Database" as QuizDB
+
+U -> GetTeacherQuizzesEndpoint: Request to get teacher quizzes
+activate GetTeacherQuizzesEndpoint
+GetTeacherQuizzesEndpoint -> U: Validate request
+U -> GetTeacherQuizzesEndpoint: Send request with teacher ID
+GetTeacherQuizzesEndpoint -> UserDB: Retrieve teacher data
+activate UserDB
+UserDB --> UserDB: Validate user
+UserDB --> GetTeacherQuizzesEndpoint: Teacher data
+deactivate UserDB
+GetTeacherQuizzesEndpoint -> QuizDB: Retrieve quizzes created by teacher
+activate QuizDB
+QuizDB --> QuizDB: Validate quiz
+QuizDB --> GetTeacherQuizzesEndpoint: Quizzes data
+deactivate QuizDB
+GetTeacherQuizzesEndpoint -> U: Respond with quizzes data
+deactivate GetTeacherQuizzesEndpoint
+@enduml

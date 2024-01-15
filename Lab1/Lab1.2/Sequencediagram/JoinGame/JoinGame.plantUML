@@ -1,0 +1,29 @@
+@startuml
+actor Player as P
+participant "Join Game Endpoint" as JoinGameEndpoint
+database "Game Database" as DB
+participant "Game Controller" as GameController
+
+P -> JoinGameEndpoint: Request to join game (Enter PIN)
+activate JoinGameEndpoint
+JoinGameEndpoint -> DB: Check if game with PIN exists
+activate DB
+DB --> DB: Validate Pin
+DB --> JoinGameEndpoint: Game data
+deactivate DB
+
+alt Game Not Found
+    JoinGameEndpoint -> P: Respond with error (Game not found)
+    deactivate JoinGameEndpoint
+else Game Found
+    JoinGameEndpoint -> GameController: Add player to the game
+    activate GameController
+    GameController-->GameController:Validate add player
+    GameController --> JoinGameEndpoint: Player added successfully
+    deactivate GameController
+    activate JoinGameEndpoint
+    JoinGameEndpoint -> P: Respond with success message
+    deactivate JoinGameEndpoint
+end
+
+@enduml

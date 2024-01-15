@@ -1,21 +1,55 @@
-@startuml SignInSequence
-actor User
-User -> App: Request SignIn
-activate App
+@startuml
+actor User as U
+participant "Login Endpoint" as LoginEndpoint
+database "User Database" as DB
+participant "Authorization Helper" as AuthHelper
 
-User <-- App: Provide Credentials
-User -> App: Email, Password
+U -> LoginEndpoint: Request to login
+activate LoginEndpoint
+LoginEndpoint -> DB: Find user by email
+activate DB
+DB --> DB: Validate Email
+DB --> LoginEndpoint: User data
+deactivate DB
 
-alt Valid Credentials
-    App -> Database: Check Credentials
-    activate Database
-    App <-- Database: Credentials Valid
-    App -> User: Sign In Successful
-    User <-- App: Signed In
-    deactivate Database
-else Invalid Credentials
-    App --> User: Credentials Invalid
+alt Invalid Email Format
+    LoginEndpoint -> U: Respond with error (Email does not format)
+else User Not Exist
+    LoginEndpoint -> U: Respond with error (Account not exist)
+else Email Not Authenticated
+    LoginEndpoint -> U: Respond with error (Email is auth account)
+    deactivate LoginEndpoint
+else Email Valid
+    LoginEndpoint -> DB: Compare passwords
+    activate DB
+    DB --> DB: Validate Password
+    DB --> LoginEndpoint: Password comparison result
+    deactivate DB
+
+    alt Wrong Password
+        activate LoginEndpoint
+        LoginEndpoint -> U: Respond with error (Wrong password)
+        deactivate LoginEndpoint
+    else
+        LoginEndpoint -> AuthHelper: Generate access and refresh tokens
+        activate AuthHelper
+        AuthHelper --> AuthHelper: Tokens generated
+        deactivate AuthHelper
+
+
+        activate LoginEndpoint
+        U -> LoginEndpoint: Access token set in request headers
+        LoginEndpoint -> U: Set refresh token cookie
+        U -> LoginEndpoint: Request for user data
+        deactivate LoginEndpoint
+
+        LoginEndpoint -> DB: Retrieve user details
+        activate DB
+        DB --> LoginEndpoint: User details
+        deactivate DB
+        LoginEndpoint -> U: Respond with user data and tokens
+        deactivate LoginEndpoint
+    end
 end
 
-deactivate App
 @enduml

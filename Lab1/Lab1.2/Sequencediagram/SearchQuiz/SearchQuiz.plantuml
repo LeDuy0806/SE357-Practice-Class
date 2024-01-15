@@ -1,17 +1,26 @@
-@startuml SearchQuizSequence
-actor User
-User -> App: SearchQuiz
-activate App
+@startuml
+actor User as U
+participant "Get Quizzes by Search Endpoint" as GetQuizzesEndpoint
+database "Quiz Database" as DB
 
-User --> App: Provide Search Criteria
-User -> App: Keywords, Filters, etc.
+U -> GetQuizzesEndpoint: Request to get quizzes by search
+activate GetQuizzesEndpoint
+GetQuizzesEndpoint -> U: Extract search parameters (searchName, tags)
+U -> GetQuizzesEndpoint: Validate and process search parameters
+deactivate GetQuizzesEndpoint
+GetQuizzesEndpoint -> DB: Query quizzes based on search parameters
+activate DB
+DB-->DB : Validate search
+DB --> GetQuizzesEndpoint: Quizzes data
 
-App -> Database: Query for Quizzes
-activate Database
-App <-- Database: Quizzes Found
-App -> User: Display Search Results
-User <-- App: Quiz List
+deactivate DB
+activate GetQuizzesEndpoint
 
-deactivate Database
-deactivate App
+alt Quizzes Found
+    GetQuizzesEndpoint -> U: Respond with quizzes data
+else No Quizzes Found
+    GetQuizzesEndpoint -> U: Respond with no quizzes found message
+end
+
+deactivate GetQuizzesEndpoint
 @enduml

@@ -1,0 +1,29 @@
+@startuml
+|User|
+start
+:1. User selects "Help Q&A" on Navbar Dropdown;
+|#AntiqueWhite|System|
+:2. Displays the Chat Box Screen;
+|User|
+:3. User enters information request;
+|User|
+:4. User clicks on the "Submit" button;
+|#AntiqueWhite|System|
+if (5. Request are valid ?) then (yes)
+  :7. Handle feedback with AI model;
+else (no)
+|#AntiqueWhite|System|
+  :6. Display error message;
+  stop
+endif
+|User|
+:8. User receive responses from the system;
+|User|
+if (9. User clicks on the "Clear" button ?) then (yes)
+  :10. Clear data on the screen;
+else (no)
+endif
+|User|
+|User|
+stop
+@enduml

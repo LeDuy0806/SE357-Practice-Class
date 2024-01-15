@@ -1,0 +1,28 @@
+@startuml
+actor User as U
+participant "Add Question Endpoint" as AddQuestionEndpoint
+database "Question Database" as QuestionDB
+database "Quiz Database" as QuizDB
+control "Validation Module" as ValidationModule
+
+U -> AddQuestionEndpoint: Request to add question
+activate AddQuestionEndpoint
+AddQuestionEndpoint -> ValidationModule: Validate and extract question data
+activate ValidationModule
+ValidationModule -> ValidationModule: Validate question data
+ValidationModule --> AddQuestionEndpoint: Validation result
+deactivate ValidationModule
+U -> AddQuestionEndpoint: Send request with validated question data
+AddQuestionEndpoint -> QuestionDB: Create and save question
+activate QuestionDB
+QuestionDB --> QuestionDB: Validate save question
+QuestionDB --> AddQuestionEndpoint: Saved question data
+deactivate QuestionDB
+AddQuestionEndpoint -> QuizDB: Update quiz with new question
+activate QuizDB
+QuizDB --> QuizDB: Validate save quiz
+QuizDB --> AddQuestionEndpoint: Updated quiz data
+deactivate QuizDB
+AddQuestionEndpoint -> U: Respond with created question and updated quiz data
+deactivate AddQuestionEndpoint
+@enduml

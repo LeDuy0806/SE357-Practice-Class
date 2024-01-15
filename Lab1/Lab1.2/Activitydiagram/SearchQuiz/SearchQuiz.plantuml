@@ -1,13 +1,19 @@
-@startuml Search Quiz
-
-rectangle "Search Quiz" {
-    start
-    :User initiates quiz search;
-    :Browse available quizzes;
-    while (Quizzes available?) is (yes)
-    :Select quiz of interest;
-    :View quiz details;
-    endwhile (no)
-    stop
-}
+@startuml
+|User|
+start
+:1. User select "Search";
+|#AntiqueWhite|System|
+:2. Displays the quizzes search screen;
+|User|
+:3. Users enter information related to the quizzes(tags,level);
+|#AntiqueWhite|System|
+if (4. Credential are valid ?) then (yes)
+  :6. Show results;
+else (no)
+|#AntiqueWhite|System|
+  :5. Displays an empty list;
+  stop
+endif
+|User|
+stop
 @enduml

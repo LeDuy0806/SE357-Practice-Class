@@ -1,0 +1,56 @@
+@startuml
+actor User as U
+participant "Update User Endpoint" as UpdateUserEndpoint
+database "User Database" as DB
+
+U -> UpdateUserEndpoint: Request to update user
+activate UpdateUserEndpoint
+UpdateUserEndpoint -> U: Validate and extract update data
+alt Invalid Email Format
+    UpdateUserEndpoint -> U: Respond with error (Email already exists)
+    deactivate UpdateUserEndpoint
+else
+    UpdateUserEndpoint -> DB: Check existing email and username
+    activate DB
+    DB --> DB: Validate information
+    DB --> UpdateUserEndpoint: Email and username check result
+    deactivate DB
+    
+    activate UpdateUserEndpoint
+    alt Email Exists
+        UpdateUserEndpoint -> U: Respond with error (Email already exists)
+        
+    else Username Exists
+        UpdateUserEndpoint -> U: Respond with error (UserName already exists)
+        
+    else
+        UpdateUserEndpoint -> U: Validate UserName, FirstName, and LastName format
+        alt Invalid UserName Format
+            UpdateUserEndpoint -> U: Respond with error (User Name is not format)
+            
+        else Invalid FirstName Format
+            UpdateUserEndpoint -> U: Respond with error (First Name is not format)
+            
+        else Invalid LastName Format
+            UpdateUserEndpoint -> U: Respond with error (Last Name is not format)
+        deactivate UpdateUserEndpoint
+        end
+        UpdateUserEndpoint -> DB: Find user by ID
+        activate DB
+        DB --> DB: Validate find
+        DB --> UpdateUserEndpoint: User data
+        deactivate DB
+
+        UpdateUserEndpoint -> U: Update user data
+        UpdateUserEndpoint -> DB: Save updated user data
+        activate DB
+        DB --> DB: Validate save
+        DB --> UpdateUserEndpoint: Update result
+        deactivate DB
+
+ 
+    end
+end
+
+deactivate UpdateUserEndpoint
+@enduml

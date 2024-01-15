@@ -1,0 +1,16 @@
+@startuml
+actor Player as P
+participant "View Leaderboard Endpoint" as ViewLeaderboardEndpoint
+database "User Database" as DB
+
+P -> ViewLeaderboardEndpoint: Request to view leaderboard
+activate ViewLeaderboardEndpoint
+ViewLeaderboardEndpoint -> DB: Retrieve leaderboard data
+activate DB
+DB --> DB: validate Leaderboard
+DB --> ViewLeaderboardEndpoint: Leaderboard data
+deactivate DB
+
+ViewLeaderboardEndpoint -> P: Respond with leaderboard data
+deactivate ViewLeaderboardEndpoint
+@enduml

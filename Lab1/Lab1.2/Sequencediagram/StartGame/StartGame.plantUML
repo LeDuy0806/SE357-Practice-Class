@@ -1,0 +1,32 @@
+@startuml
+actor GameHost as GH
+participant "Start Game Endpoint" as StartGameEndpoint
+database "Game Database" as GameDB
+participant "Game Controller" as GameController
+
+GH -> StartGameEndpoint: Request to start game
+activate StartGameEndpoint
+StartGameEndpoint -> GH: Validate request
+GH -> StartGameEndpoint: Send request to start game
+StartGameEndpoint -> GameDB: Update game status to 'live'
+deactivate StartGameEndpoint
+activate GameDB
+GameDB --> GameDB: Validate game
+GameDB --> StartGameEndpoint: Updated game status
+deactivate GameDB
+activate StartGameEndpoint
+
+alt Game Started Successfully
+    StartGameEndpoint -> GameController: Initialize game state
+    activate GameController
+    GameController --> GameController: Validate game start
+    GameController --> StartGameEndpoint: Game state initialized
+    deactivate GameController
+
+    StartGameEndpoint -> GH: Respond with success message
+else Game Start Failed
+    StartGameEndpoint -> GH: Respond with error message
+end
+
+deactivate StartGameEndpoint
+@enduml

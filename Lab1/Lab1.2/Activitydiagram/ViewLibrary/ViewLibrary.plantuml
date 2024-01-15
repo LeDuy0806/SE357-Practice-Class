@@ -1,0 +1,15 @@
+@startuml
+|User|
+start
+:1. User select "View Library";
+|#AntiqueWhite|System|
+:2. Displays the quizzes library list;
+|User|
+:3. User select a specific quiz;
+|#AntiqueWhite|System|
+:4. Displays quiz's personal information;
+|User|
+:5. View details about quiz information;
+
+stop
+@enduml

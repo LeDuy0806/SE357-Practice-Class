@@ -1,0 +1,22 @@
+@startuml
+actor QuizCreator as QC
+participant "Delete Quiz Endpoint" as DeleteQuizEndpoint
+database "Quiz Database" as QuizDB
+control "Validation Module" as ValidationModule
+
+QC -> DeleteQuizEndpoint: Request to delete quiz
+activate DeleteQuizEndpoint
+DeleteQuizEndpoint -> ValidationModule: Validate request
+activate ValidationModule
+ValidationModule -> ValidationModule: Validate quiz deletion request
+ValidationModule --> DeleteQuizEndpoint: Validation result
+deactivate ValidationModule
+QC -> DeleteQuizEndpoint: Send request with quiz ID
+DeleteQuizEndpoint -> QuizDB: Delete quiz by ID
+activate QuizDB
+QuizDB --> QuizDB: Validate quiz
+QuizDB --> DeleteQuizEndpoint: Quiz deleted successfully
+deactivate QuizDB
+DeleteQuizEndpoint -> QC: Respond with success message
+deactivate DeleteQuizEndpoint
+@enduml

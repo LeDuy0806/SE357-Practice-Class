@@ -1,0 +1,22 @@
+@startuml
+|User|
+start
+:1. User select "Sign In";
+|#AntiqueWhite|System|
+:2. System Display login form;
+|User|
+:3. User Enter login information (mail , password);
+|#AntiqueWhite|System|
+if (4. Credentials are valid?) then (yes)
+  :6. Grant access;
+  :7. User is logged in;
+else (no)
+|#AntiqueWhite|System|
+  :5. Display error message;
+  stop
+endif
+|User|
+:8. User is redirected to the Home page;
+|User|
+stop
+@enduml

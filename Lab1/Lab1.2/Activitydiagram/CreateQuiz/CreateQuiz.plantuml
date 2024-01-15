@@ -1,26 +1,22 @@
-@startuml Create Quiz
-
-rectangle "Create Quiz"{
-    start
-    :User initiates quiz creation;
-    :Provide quiz details;
-    if (Details valid?) then (yes)
-    :Generate unique quiz ID;
-    :Create quiz;
-    while (Add questions?) is (yes)
-        :Add question;
-        :Specify answer options;
-        :Set correct answers;
-    endwhile (no)
-    :Save quiz settings;
-    :Publish quiz;
-    :Notify followers;
-    else (no)
-    :Display error message;
-    stop
-    endif
-    :Quiz created;
-    stop
-}
-
+@startuml
+|User|
+start
+:1. User select "Create Quiz";
+|#AntiqueWhite|System|
+:2. System display Creator Screen;
+|User|
+:3. User enters the necessary information of the quizzes;
+|#AntiqueWhite|System|
+if (4. Credentials are valid ?) then (yes)
+  :6. User has created a quiz;
+  :7. Close the dialog box;
+  :8. Direct user to Creator Screen;
+else (no)
+|#AntiqueWhite|System|
+  :5. Display error message;
+  stop
+endif
+|User|
+|User|
+stop
 @enduml

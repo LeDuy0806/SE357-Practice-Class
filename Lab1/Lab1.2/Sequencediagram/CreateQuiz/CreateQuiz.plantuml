@@ -1,21 +1,29 @@
-@startuml CreateQuizSequece
-actor User
-User -> App: CreateQuiz
-activate App
+@startuml
+actor User as U
+participant "Create Quiz Endpoint" as CreateQuizEndpoint
+database "Quiz Database" as QuizDB
+database "Question Database" as QuestionDB
+control "Validation Module" as ValidationModule
 
-User --> App: Provide Quiz Details
-User -> App: Title, Questions, pointQuiz , Options, etc.
+U -> CreateQuizEndpoint: Request to create quiz
+activate CreateQuizEndpoint
+CreateQuizEndpoint -> ValidationModule: Validate and extract quiz data
+activate ValidationModule
+ValidationModule --> ValidationModule: Validate quiz data
+ValidationModule --> CreateQuizEndpoint: Validation result
+deactivate ValidationModule
+U -> CreateQuizEndpoint: Send request with validated quiz data
 
-alt Valid Details
-    App -> Database: Save Quiz
-    activate Database
-    App <-- Database: Quiz Saved
-    App -> User: Quiz Created Successfully
-    User <-- App: Quiz Created
-    deactivate Database
-else Invalid Details
-    App --> User: Invalid Details
-end
-
-deactivate App
+CreateQuizEndpoint -> QuestionDB: Create and save questions
+activate QuestionDB
+QuestionDB --> QuestionDB: Validate save question
+QuestionDB --> CreateQuizEndpoint: Saved question data
+deactivate QuestionDB
+CreateQuizEndpoint -> QuizDB: Create and save quiz
+activate QuizDB
+QuizDB --> QuizDB: Validate save data
+QuizDB --> CreateQuizEndpoint: Saved quiz data
+deactivate QuizDB
+CreateQuizEndpoint -> U: Respond with created quiz data
+deactivate CreateQuizEndpoint
 @enduml
