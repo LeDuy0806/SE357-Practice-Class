@@ -1,20 +1,58 @@
-@startuml PlayGameSequence
+@startuml
+actor Player as P
+participant "Play Game Endpoint" as PlayGameEndpoint
+database "Game Database" as DB
+participant "Game Controller" as GameController
+participant "Question Service" as QuestionService
 
-actor Player
-Player -> App: PlayGame
-activate App
+P -> PlayGameEndpoint: Request to play game
+activate PlayGameEndpoint
+PlayGameEndpoint -> DB: Retrieve game data
+activate DB
+DB-->DB: Validate game
+DB --> PlayGameEndpoint: Game data
+deactivate DB
 
-Player --> App: Select Game, Options, etc.
+alt Game Not Found
+    PlayGameEndpoint -> P: Respond with error (Game not found)
+    deactivate PlayGameEndpoint
 
-alt Game Ready
-    App -> GameServer: Start Game
-    activate GameServer
-    App <-- GameServer: Game Started
-    App -> Player: Game is Ready
-    Player <-- App: Game Ready
-    deactivate GameServer
-else Game Unavailable
-    App --> Player: Game Not Available
-    deactivate App
-    @enduml
+else Gane Found
+    
+    PlayGameEndpoint -> GameController: Start the game
+    activate PlayGameEndpoint
+    activate GameController
+    GameController --> GameController: validate game
+    GameController --> PlayGameEndpoint: Game started successfully
+    deactivate GameController
+
+    P -> PlayGameEndpoint: Request for the next question
+    PlayGameEndpoint -> QuestionService: Retrieve next question
+    activate QuestionService
+    QuestionService --> QuestionService: validate question
+    QuestionService --> PlayGameEndpoint: Next question data
+    deactivate QuestionService
+
+    PlayGameEndpoint -> P: Send the next question to the player
+    
+
+    P -> PlayGameEndpoint: Submit player's answer
+    PlayGameEndpoint -> GameController: Process player's answer
+    activate GameController
+    GameController --> GameController: validate answer
+    GameController --> PlayGameEndpoint: Answer processed
+    deactivate GameController
+
+    P -> PlayGameEndpoint: Request result
+    PlayGameEndpoint -> GameController: Calculate player's score
+    activate GameController
+    GameController --> GameController: validate score
+    GameController --> PlayGameEndpoint: Score calculated
+    deactivate GameController
+
+    P -> PlayGameEndpoint: Receive game result
+    PlayGameEndpoint -> P: Display game result to the player
+    deactivate PlayGameEndpoint
 end
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+actor Player as P
+participant "Exit Game Endpoint" as ExitGameEndpoint
+database "Game Database" as DB
+participant "Game Controller" as GameController
+
+P -> ExitGameEndpoint: Request to exit game
+activate ExitGameEndpoint
+ExitGameEndpoint -> DB: Retrieve game data
+activate DB
+DB --> DB: validate game
+DB --> ExitGameEndpoint: Game data
+deactivate DB
+
+alt Game Not Found
+    ExitGameEndpoint -> P: Respond with error (Game not found)
+    deactivate ExitGameEndpoint
+else
+    ExitGameEndpoint -> GameController: Check if the game has started
+    activate GameController
+    GameController --> GameController: validate start
+    GameController --> ExitGameEndpoint: Game status
+    deactivate GameController
+
+    alt Game Started
+        activate ExitGameEndpoint
+        ExitGameEndpoint -> P: Respond with error (Cannot exit, game has started)
+        deactivate ExitGameEndpoint
+    else Game Not Started
+        ExitGameEndpoint -> GameController: Remove player from the game
+        activate GameController
+        GameController --> GameController: validate player
+        GameController --> ExitGameEndpoint: Player removed successfully
+        deactivate GameController
+        activate ExitGameEndpoint
+        ExitGameEndpoint -> P : Respond with success message
+        deactivate ExitGameEndpoint
+    end
+end
+
+@enduml

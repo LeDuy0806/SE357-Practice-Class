@@ -1,0 +1,24 @@
+@startuml
+|User|
+start
+:1.User select "Add Question";
+|#AntiqueWhite|System|
+:2. Displays a form to create the question;
+|User|
+:3. User enters the necessary information of the question;
+|User|
+:4. User clicks on "Save Question" button;
+|#AntiqueWhite|System|
+if (5. Credentials are valid ?) then (yes)
+  :7. User has created a question;
+  :8. Display successfully message;
+else (no)
+|#AntiqueWhite|System|
+  :6. Display error message;
+  stop
+endif
+|User|
+:9. User receive notification of successful question creation;
+|User|
+stop
+@enduml

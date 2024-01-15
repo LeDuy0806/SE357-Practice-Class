@@ -1,0 +1,24 @@
+@startuml
+|User|
+start
+:1. User select "Join Game";
+|#AntiqueWhite|System|
+:2. Displays the PIN code entry form;
+|User|
+:3. User enters PIN code (Example:1234,1809,...);
+|User|
+:4. User click "Enter" button;
+|#AntiqueWhite|System|
+if (5. Credentials are valid ?) then (yes)
+  :7 .User join the room;
+  :8 .Display successfully message;
+else (no)
+|#AntiqueWhite|System|
+  :6 .Display invalid PIN message;
+  stop
+endif
+|User|
+:9. User received successfully message;
+|User|
+stop
+@enduml

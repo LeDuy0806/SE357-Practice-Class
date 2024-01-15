@@ -1,0 +1,26 @@
+@startuml
+actor User as U
+participant "ChatBoxAI" as ChatBoxAI
+control "NLP Processor" as NLPProcessor
+control "AI Model" as AIModel
+database "Knowledge Base" as KnowledgeBase
+
+U -> ChatBoxAI: User sends message
+activate ChatBoxAI
+ChatBoxAI -> NLPProcessor: Preprocess user message
+activate NLPProcessor
+NLPProcessor -> AIModel: Analyze preprocessed message
+activate AIModel
+AIModel -> KnowledgeBase: Retrieve relevant information
+activate KnowledgeBase
+KnowledgeBase --> KnowledgeBase: Validate model
+KnowledgeBase --> AIModel: Relevant information
+deactivate KnowledgeBase
+AIModel -> AIModel: Generate AI response
+AIModel --> NLPProcessor: AI-generated response
+deactivate AIModel
+NLPProcessor -> ChatBoxAI: Postprocess AI response
+deactivate NLPProcessor
+ChatBoxAI --> U: Respond with processed AI-generated message
+deactivate ChatBoxAI
+@enduml

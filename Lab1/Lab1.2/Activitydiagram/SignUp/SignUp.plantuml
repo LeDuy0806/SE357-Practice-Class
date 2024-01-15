@@ -1,0 +1,21 @@
+@startuml
+|User|
+start
+:1. User select "Sign Up";
+|#AntiqueWhite|System|
+:2. System Display registration form;
+|User|
+:3. User Enter singup information (mail , password ,...);
+|#AntiqueWhite|System|
+if (4. Check exists question?) then (no)
+  :6 .Grant access;
+else (yes)
+|#AntiqueWhite|System|
+  :5 .Display error message;
+  stop
+endif
+|User|
+:7. User is redirected to the Home page;
+|User|
+stop
+@enduml

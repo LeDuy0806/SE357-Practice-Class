@@ -1,0 +1,21 @@
+@startuml
+actor GameCreator as GC
+participant "Create Game Endpoint" as CreateGameEndpoint
+database "Game Database" as GameDB
+control "Validation Module" as ValidationModule
+
+GC -> CreateGameEndpoint: Request to create game
+activate CreateGameEndpoint
+CreateGameEndpoint -> ValidationModule: Validate request
+activate ValidationModule
+ValidationModule -> ValidationModule: Validate game data
+ValidationModule --> CreateGameEndpoint: Validation result
+deactivate ValidationModule
+CreateGameEndpoint -> GameDB: Create and save game
+activate GameDB
+GameDB --> GameDB: Validate game
+GameDB --> CreateGameEndpoint: Saved game data
+deactivate GameDB
+CreateGameEndpoint -> GC: Respond with created game data
+deactivate CreateGameEndpoint
+@enduml

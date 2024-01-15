@@ -1,0 +1,22 @@
+@startuml
+|User|
+start
+:1. User selects "Play" on QuizCard;
+|#AntiqueWhite|System|
+:2. Displays a confirmation dialog to create the game.;
+|User|
+:3. User select the option in the Dialog (Yes or No);
+|#AntiqueWhite|System|
+if (4. Check Option) then (yes)
+  :6. User has created a game.;
+  :7. Display a WattingRoom Screen;
+  :8. Notify other user;
+else (no)
+|#AntiqueWhite|System|
+  :5 .Close the Dialog box;
+  stop
+endif
+|User|
+|User|
+stop
+@enduml

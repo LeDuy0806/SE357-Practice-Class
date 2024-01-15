@@ -1,0 +1,22 @@
+@startuml
+|User|
+start
+:1. User select "Exit Game";
+|#AntiqueWhite|System|
+:2. Displays a confirmation dialog to leave the game.;
+|User|
+:3. User selects the option in the dialog (Yes or No);
+|#AntiqueWhite|System|
+if (4. Check Option) then (yes)
+  :6 .Close the dialog box;
+  :7 .User leaves the room;
+  :8 .Notify other players;
+else (no)
+|#AntiqueWhite|System|
+  :5 .Close the dialog box;
+  stop
+endif
+|User|
+|User|
+stop
+@enduml

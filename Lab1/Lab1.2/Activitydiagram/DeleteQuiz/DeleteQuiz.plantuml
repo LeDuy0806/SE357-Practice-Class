@@ -1,0 +1,23 @@
+@startuml
+|User|
+start
+:1. User select "Delete";
+|#AntiqueWhite|System|
+:2. Displays a confirmation dialog to delete the quiz.;
+|User|
+:3. User selects the option in the dialog (Yes or No);
+|#AntiqueWhite|System|
+if (4. Check Option) then (yes)
+  :6. Quiz has been deleted;
+  :7. Close the dialog box;
+  :8. Displays a successfully message;
+else (no)
+|#AntiqueWhite|System|
+  :5. Close the dialog box;
+  stop
+endif
+|User|
+:9. User receives a notification that the quiz has been successfully deleted;
+|User|
+stop
+@enduml
